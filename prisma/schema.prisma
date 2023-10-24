@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ChatMessage {
+model Chat {
   id Int @default(autoincrement()) @id
   username String
   text String
