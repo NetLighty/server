@@ -11,8 +11,9 @@ datasource db {
 }
 
 model Chat {
-  id Int @default(autoincrement()) @id
+  id String @id
   username String
   text String
+  date String
   createdAt DateTime @default(now())
 }

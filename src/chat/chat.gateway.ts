@@ -11,6 +11,7 @@ import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
 
 @WebSocketGateway({
+  /* transports: ['websocket'], */
   namespace: 'chat',
   cors: {
     origin: '*',
@@ -24,17 +25,18 @@ export class ChatGateway
   @WebSocketServer()
   server: Server;
 
-  @SubscribeMessage('sendMessage')
-  async handleSendMessage(
+  @SubscribeMessage('message')
+  async handleMessage(
     client: Socket,
     payload: Prisma.ChatCreateInput,
   ): Promise<void> {
-    await this.chatService.createMessage(payload);
-    this.server.emit('receiveMessage', payload);
+    //await this.chatService.createMessage(payload);
+    console.log(payload);
+    this.server.emit('message', payload);
   }
 
-  afterInit(server: any) {
-    console.log(server);
+  afterInit(/* server: any */) {
+    console.log('init');
   }
 
   handleConnection(client: Socket) {
